@@ -1,4 +1,5 @@
 import css from '../app.module.css';
+import PropTypes from 'prop-types';
 
 export const Filter = ({ filter, handleSearchChange }) => {
   return (
@@ -15,4 +16,9 @@ export const Filter = ({ filter, handleSearchChange }) => {
       />
     </div>
   );
+};
+
+Filter.propTypes = {
+  filter: PropTypes.string.isRequired,
+  handleSearchChange: PropTypes.func.isRequired,
 };

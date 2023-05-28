@@ -20,21 +20,24 @@ export class App extends Component {
     this.setState({ filter: event.target.value });
   };
 
-  addContact = (name, number) => {
+  addContact = contact => {
     const { contacts } = this.state;
     const doubleContact = contacts.some(
-      contact => contact.name.toLowerCase() === name.toLowerCase()
+      someContact =>
+        someContact.name.toLowerCase() === contact.name.toLowerCase()
     );
 
     if (doubleContact) {
-      alert(`Контакт з іменем ${name} вже присутній у телефонній книзі!`);
+      alert(
+        `Контакт з іменем ${contact.name} вже присутній у телефонній книзі!`
+      );
       return;
     }
 
     const newContact = {
       id: nanoid(),
-      name: name,
-      number: number,
+      name: contact.name,
+      number: contact.number,
     };
 
     this.setState({
@@ -46,7 +49,6 @@ export class App extends Component {
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => contact.id !== contactId),
     }));
-    console.log('hhvhvhvh');
   };
 
   render() {

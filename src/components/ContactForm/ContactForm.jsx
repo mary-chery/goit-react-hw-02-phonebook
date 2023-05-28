@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import css from '../app.module.css';
+import PropTypes from 'prop-types';
 
 export class ContactForm extends Component {
   state = {
@@ -7,18 +8,18 @@ export class ContactForm extends Component {
     number: '',
   };
 
-  handleNameChange = event => {
-    this.setState({ name: event.target.value });
+  handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
   };
 
-  handleNmberChange = event => {
-    this.setState({ number: event.target.value });
-  };
+  // handleNmberChange = event => {
+  //   this.setState({ number: event.target.value });
+  // };
 
   handleSubmit = event => {
     event.preventDefault();
     const { name, number } = this.state;
-    this.props.addContact(name, number);
+    this.props.addContact({ name, number });
     this.setState({ name: '', number: '' });
   };
 
@@ -37,7 +38,7 @@ export class ContactForm extends Component {
               title="Ім'я може містити лише літери, апостроф, дефіс та пробіли. Наприклад, Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
               required
               value={name}
-              onChange={this.handleNameChange}
+              onChange={this.handleChange}
             />
 
             <input
@@ -47,7 +48,8 @@ export class ContactForm extends Component {
               title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
               required
               value={number}
-              onChange={this.handleNmberChange}
+              // onChange={this.handleNmberChange}
+              onChange={this.handleChange}
             />
 
             <button className={css.addButton} type="submit">
@@ -59,3 +61,7 @@ export class ContactForm extends Component {
     );
   }
 }
+
+ContactForm.propTypes = {
+  addContact: PropTypes.func.isRequired,
+};
